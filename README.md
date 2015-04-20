@@ -1,4 +1,4 @@
-# Random People Generator (name, first name, middle name, birth date, and user attributes)
+# Extensible Random People Generator
 
 Class for generating random people data, for populating test databases and similar purposes
 (for example create company fake employees list)
@@ -28,7 +28,7 @@ $gender = $sex_arr[rand(0,1)];
 $ln = RandomData::getLastName($gender); // get random last name
 $fn = RandomData::getFirstName($gender); // get random first name
 $pn = RandomData::getMiddleName($gender); // and patronimnic/middle name
-$birth = RandomData::getDate(4,50, 'Y-m-d'); // random birth date for 4 - 50 years old, and I want output format YYYY-MM-DD
+$birth = RandomData::getDate(4,50, 'Y-m-d'); // random birth date for 4 - 50 years old, 'YYYY-MM-DD'
 echo "$ln, $fn $pn, ". ($gender==='f'?'female':'male') . ", born: $birth<br>";
 
 ```
@@ -74,9 +74,13 @@ If last name for males and females has differense, you can pass "modifier" funct
 correct lastname for passed gender.
 For example, russian last names based on common "base" usually have different: endings:
 
-|_.Base     |_.Male last name |_.Female last name |_. Universal (male,female) |
-|=. Sidor   |=. Sidorov       |=. Sidorova        |=. Sidorenko, Sidorovich   |
-|=. Bel     |=. Belov, Beliy  |=. Belova, Belaya  |=. Bel'chenko              |
+Male: Sidorov
+Female: Sidorova
+Common (male,female): Sidorenko, Sidorovich
+
+Male: Belov, Beliy
+Femail: Belova, Belaya
+Common: Bel'chenko
 
 So simplest modifier function should at least add "a" at the end of a last name for female (in most cases, with exclusions).
 
@@ -99,12 +103,14 @@ RandomData::registerAttribute('startwork',
      return RandomData::getRandomDate(1,15);
    }
 );
+```
 
 ## Getting randomized person data
 
 First, You can call single function for each person attribute:
 
 ```php
+$sex_arr = array('m', 'f');
 $sex = $sex_arr[rand(0,1)];
 $lastname  = RandomData::getLastName($sex);
 $firstname = RandomData::getFirstName($sex);
@@ -125,5 +131,4 @@ Working examples can be found in [examples](examples/) folder.
 ## License
 Distributed under BSD (v3) License :
 http://opensource.org/licenses/BSD-3-Clause
-
 
