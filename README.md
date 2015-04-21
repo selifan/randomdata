@@ -84,7 +84,7 @@ For example, russian last names based on common "base" usually have different: e
 
 So a simplest modifier function (for russian last names) should at least add "a" at the end of a last name for female (in most cases, with exclusions).
 
-## Ading user attributes
+## Adding user attributes
 
 It is possible to add new atributes to be randomly generated for the object (person).
 For example, you may need "department id", "salary" or a start working date for the full employee description.
