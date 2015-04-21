@@ -65,7 +65,7 @@ $my_lastnames = array('Johnson', 'Harvester');
 RandomData::addSource('lastnames', null, $my_lastnames); // Last names
 ```
 
-* "firstnames" sub-array should contain all possible first names for current language, sub-array 'm' - for male names, 'f' - fo femail's.
+* "firstnames" sub-array should contain all possible first names for current language, sub-array 'm' - for male names, 'f' - fo female's.
 * "lastnames" should contain "last names" that will be used in "randomized people" creation process.
 * If patronimic (or middle) names used in your country, populate 'patrnames' sub-array (it must contain two subarrays too, 'm' amd 'f').
 
