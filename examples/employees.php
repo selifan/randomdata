@@ -12,7 +12,6 @@
 include('../src/class.randomdata.php');
 $lang = isset($_GET['lang']) ? $_GET['lang'] : 'en';
 include_once("../src/class.randomdata.lang-$lang.php");
-include_once("../src/class.randomdata.lang-ru.php");
 
 $sex_arr = array('m', 'f');
 
@@ -23,11 +22,12 @@ RandomData::registerAttribute('startwork', function($par) {
 });
 
 RandomData::registerAttribute('dept', 'randDeptName');
+RandomData::setConfig('birthdate', array('min'=>21,'max'=>70));
 
 echo "Generated employees : <table border='1'><tr><th>No</th><th>Name</th>"
    . "<th>gender</th><th>birth date</th><th>Start work</th><th>Department</th></tr>";
 
-$options = array('birthdate'=>array(19,70), 'dateformat'=>'Y-m-d','middlename'=>true);
+$options = array('birthdate'=>true /*array(19,20)*/, 'dateformat'=>'Y-m-d','middlename'=>true);
 
 /** if you need multiple language in your list (english and russian in my case), uncomment this line:
 * $options['lang'] = array('en','ru');

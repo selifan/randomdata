@@ -17,7 +17,7 @@ for($kk=1; $kk<=50; $kk++) {
     $ln = RandomData::getLastName($sex);
     $fn = RandomData::getFirstName($sex);
     $pn = RandomData::getMiddleName($sex);
-    $birth = RandomData::getDate(4,50, 'Y-m-d');
+    $birth = RandomData::getRandomDate(4,50, 'm/d/Y');
     echo "$kk: $ln, $fn $pn, ".decodeSex($sex). ", born: $birth<br>";
 }
 function decodeSex($sx) {

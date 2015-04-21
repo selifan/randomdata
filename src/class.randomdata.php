@@ -14,6 +14,7 @@ class RandomData {
     static $person = array(); // source data for generating procedures
     static $curLang = '';
     static $registeredAttribs = array();
+    static $config = array('birthdate'=>array('min'=>1,'max'=>60));
 
     public static function registerLanguage($lang, $options) {
 
@@ -22,7 +23,10 @@ class RandomData {
             self::$curLang = $lang;
         }
     }
-
+    public static function setConfig($attrib, $params) {
+        if (!isset(self::$config[$attrib])) self::$config[$attrib] = array();
+        self::$config[$attrib] = array_merge(self::$config[$attrib], $params);
+    }
     public static function registerAttribute($attrib, $funcname) {
         self::$registeredAttribs[$attrib] = $funcname;
     }
@@ -89,10 +93,13 @@ class RandomData {
     * @param mixed $max_years maximal years from urrent date
     * @param mixed $datefmt maximal date format to return, Y-m-d by default ("YYYY-MM-DD")
     */
-    public static function getRandomDate($min_years=0, $max_years=60, $datefmt=false) {
+    public static function getRandomDate($min_years=NULL, $max_years=NULL, $datefmt=false) {
 #        echo '<pre>' . print_r($min_years,1) .'</pre>';
         $now = time();
+        if ($min_years === NULL) $min_years = self::$config['birtdate']['min'];
+        if ($max_years === NULL) $max_years = self::$config['birtdate']['max'];
         $max_years = max($min_years+0.01,$max_years);
+
         $tm1 = $now - $min_years*365.25*86400;
         $tm2 = $now - $max_years*365.25*86400;
         if(!$datefmt) $datefmt = 'Y-m-d';

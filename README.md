@@ -84,6 +84,28 @@ For example, russian last names based on common "base" usually have different: e
 
 So a simplest modifier function (for russian last names) should at least add "a" at the end of a last name for female (in most cases, with exclusions).
 
+## Setting limits for birthdate
+
+By default random birth date range is between 1 and 60 years ago from current date. (see a var $config in the main class module).
+To change these borders you can call function *RandomData::getRandomDate()* explicitly passing your min and max year values.
+But when "integrate" function getPerson() for employee list (for instance), you will want to make "mature" people. So you can pass
+your limits in $options parameter :
+```php
+$options = array('birthdate'=>array(20,60));
+RandomData::getPerson($options);
+// ...
+```
+
+Or you can call *setConfig()* method before any getPerson() using :
+
+```php
+RandomData::setConfig(array(
+  'birthdate'=>array(
+      'min'=>20
+    , 'max'=>60
+  )
+));
+```
 ## Adding user attributes
 
 It is possible to add new atributes to be randomly generated for the object (person).
