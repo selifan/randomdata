@@ -100,8 +100,8 @@ class RandomData {
         if ($max_years === NULL) $max_years = self::$config['birtdate']['max'];
         $max_years = max($min_years+0.01,$max_years);
 
-        $tm1 = $now - $min_years*365.25*86400;
-        $tm2 = $now - $max_years*365.25*86400;
+        $tm1 = $now - $max_years*365.25*86400;
+        $tm2 = $now - $min_years*365.25*86400;
         if(!$datefmt) $datefmt = 'Y-m-d';
         return date($datefmt, rand($tm1, $tm2));
     }
