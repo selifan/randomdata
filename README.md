@@ -1,11 +1,11 @@
 # Extensible Random People Generator
 
 Class for generating random people data, for populating test databases and similar purposes
-(for example create company fake employees list)
+(for example create company fake employees list, or obfuscating personnel data before sending outside company)
 
 ![generating sample](screenshot.png)
 
-##Short description
+## Description
 
 Simple module for generating randomized "human" data: First name, Last name, middle name (if needed),
 birthdate in desired age range.
@@ -62,7 +62,7 @@ $my_firstnames = array('John', 'Mike'); // Base names to add
 RandomData::addSource('firstnames', 'm', $my_firstnames); // add to male First names
 
 $my_lastnames = array('Johnson', 'Harvester');
-RandomData::addSource('lastnames', null, $my_lastnames); // Last names for males
+RandomData::addSource('lastnames', null, $my_lastnames); // Last names
 ```
 
 * "firstnames" sub-array should contain all possible first names for current language, sub-array 'm' - for male names, 'f' - fo femail's.
@@ -82,7 +82,7 @@ For example, russian last names based on common "base" usually have different: e
 * Female: Belova, Belaya
 * Common: Bel'chenko
 
-So simplest modifier function should at least add "a" at the end of a last name for female (in most cases, with exclusions).
+So a simplest modifier function (for russian last names) should at least add "a" at the end of a last name for female (in most cases, with exclusions).
 
 ## Ading user attributes
 
