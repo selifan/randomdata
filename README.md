@@ -74,13 +74,8 @@ If last name for males and females has differense, you can pass "modifier" funct
 correct lastname for passed gender.
 For example, russian last names based on common "base" usually have different: endings:
 
-* Male: Sidorov
-* Female: Sidorova
-* Common (male,female): Sidorenko, Sidorovich
-
-* Male: Belov, Beliy
-* Female: Belova, Belaya
-* Common: Bel'chenko
+* Male: Sidorov, Maltsev, Karpin
+* Female: Sidorova, Maltseva, Karpina
 
 So a simplest modifier function (for russian last names) should at least add "a" at the end of a last name for female (in most cases, with exclusions).
 
