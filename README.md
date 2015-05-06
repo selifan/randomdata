@@ -163,7 +163,8 @@ Here we want to create two generations (parents and grand-parents) from start pe
 having "maximal" age of 80 years.
 One note: if year of created death date is equal or greather than current year, person will be treated as "alive" (no death date).
 
-Working sample demonstrating created family tree provided in "examples" folder - see [examples/family_tree.php](family_tree.php) module.
+Working sample demonstrating created family tree provided in "examples" folder : 
+[examples/family_tree.php](family_tree.php)
 
 To visualize family tree i used CSS3 tricks from [http://codepen.io/Pestov/pen/BLpgm](http://codepen.io/Pestov/pen/BLpgm) :
 
