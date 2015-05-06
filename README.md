@@ -167,7 +167,7 @@ Working sample demonstrating created family tree provided in "examples" folder -
 
 To visualize family tree i used CSS3 tricks from [http://codepen.io/Pestov/pen/BLpgm](http://codepen.io/Pestov/pen/BLpgm) :
 
-![Created family tree example](src/shot-family-tree.png)
+![Created family tree example](examples/shot-family-tree.png)
 
 Working examples can be found in [examples](examples/) folder.
 
