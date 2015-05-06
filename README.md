@@ -145,8 +145,8 @@ $db->append('employees', $person); // here must be your operator for adding data
 
 ## Family tree generation
 
-Additional class was included to generate random "family trees", strting from "start" person, with his/her parents, grand-parents etc.
-This class packed as separated module, [src/class.randomdata.ftree.php](class.randomdata.ftree.php)
+Additional class was included to generate random "family trees", begining from "start" person, with his/her parents, grand-parents etc.
+This class implemented as separated module, [class.randomdata.ftree.php](src/class.randomdata.ftree.php)
 This module contains class *RandomFtree* that extends base class RandomData. It has one main public method familyTree(),
 that will return an array with "family tree" people.
 
@@ -164,7 +164,7 @@ having "maximal" age of 80 years.
 One note: if year of created death date is equal or greather than current year, person will be treated as "alive" (no death date).
 
 Working sample demonstrating created family tree provided in "examples" folder : 
-[examples/family_tree.php](family_tree.php)
+[examples/family_tree.php](examples/family_tree.php)
 
 To visualize family tree i used CSS3 tricks from [http://codepen.io/Pestov/pen/BLpgm](http://codepen.io/Pestov/pen/BLpgm) :
 
