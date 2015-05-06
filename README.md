@@ -143,6 +143,32 @@ $person = RandomData::getPerson();
 $db->append('employees', $person); // here must be your operator for adding data to DB
 ```
 
+## Family tree generation
+
+Additional class was included to generate random "family trees", strting from "start" person, with his/her parents, grand-parents etc.
+This class packed as separated module, [src/class.randomdata.ftree.php](class.randomdata.ftree.php)
+This module contains class *RandomFtree* that extends base class RandomData. It has one main public method familyTree(),
+that will return an array with "family tree" people.
+
+Each row in this array is an array too, that contains one or more "person" blocks.
+There is one person in the first row - this is a "start" person of a tree.
+Each next row contains parents (father first, then mother) for all person(s) in the previous row.
+It is possible to generate death date too. To turn it on. pass $options with non-empty 'death' element:
+
+```php
+$opts = array('generations' => 2, 'death'=>80);
+$tree = $randtree->familyTree($opts);
+```
+Here we want to create two generations (parents and grand-parents) from start person, with "death date",
+having "maximal" age of 80 years.
+One note: if year of created death date is equal or greather than current year, person will be treated as "alive" (no death date).
+
+Working sample demonstrating created family tree provided in "examples" folder - see [examples/family_tree.php](family_tree.php) module.
+
+To visualize family tree i used CSS3 tricks from [http://codepen.io/Pestov/pen/BLpgm](http://codepen.io/Pestov/pen/BLpgm) :
+
+![Created family tree example](src/shot-family-tree.png)
+
 Working examples can be found in [examples](examples/) folder.
 
 ## License

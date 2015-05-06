@@ -5,7 +5,7 @@
 *
 * @Author Alexander Selifonov, <alex [at] selifan {dot} ru>
 * @copyright Alexander Selifonov, <alex [at] selifan {dot} ru>
-* @version 0.10 (started 2014-01-05)
+* @version 0.11 2015-05-06 (started 2014-01-05)
 * @Link http://www.selifan.ru
 * @license http://opensource.org/licenses/BSD-3-Clause    BSD
 */
@@ -93,17 +93,33 @@ class RandomData {
     * @param mixed $max_years maximal years from urrent date
     * @param mixed $datefmt maximal date format to return, Y-m-d by default ("YYYY-MM-DD")
     */
-    public static function getRandomDate($min_years=NULL, $max_years=NULL, $datefmt=false) {
+    public static function getRandomDate($min_years=NULL, $max_years=NULL, $datefmt=false, $fromdate = null) {
 #        echo '<pre>' . print_r($min_years,1) .'</pre>';
-        $now = time();
+
+        if (!$datefmt) $datefmt = 'Y-m-d';
+        if (!$fromdate) $fromdate = date('Y-m-d');
+
+        list($year, $mon, $day) = preg_split("/[\s,-\/\.\:]+/",$fromdate);
+        if ($datefmt === 'd.m.Y') {$tmp = $year; $year = $day; $day = $year; }
+
         if ($min_years === NULL) $min_years = self::$config['birtdate']['min'];
         if ($max_years === NULL) $max_years = self::$config['birtdate']['max'];
         $max_years = max($min_years+0.01,$max_years);
 
-        $tm1 = $now - $max_years*365.25*86400;
-        $tm2 = $now - $min_years*365.25*86400;
-        if(!$datefmt) $datefmt = 'Y-m-d';
-        return date($datefmt, rand($tm1, $tm2));
+        $outyr = $year - rand($min_years, $max_years);
+        $outmo = rand(1,12);
+
+        if ($outmo == 2) $outdy = rand(1,28);
+        elseif (in_array($outmo, array(2,4,6,9,11))) $outdy = rand(1,30);
+        else $outdy = rand(1,31);
+        if ($outyr == $year) {
+            $outmo = min($outmo, $mon);
+            if ($outmo == $mon) $outdy = rand(1,$day);
+        }
+        $outmo = sprintf('%1$02d',$outmo);
+        $outdy = sprintf('%1$02d',$outdy);
+        $ret = str_replace(array('Y','m','d'), array($outyr,$outmo,$outdy), $datefmt);
+        return $ret;
     }
 
     public static function setLanguage($lang) {
