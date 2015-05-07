@@ -12,20 +12,28 @@
 
 class RandomFtree extends RandomData {
     /**
-    * Main method - generating family tree, starting with "root" person and going to N generations back
+    * generates family tree, starting with "root" person and going to N generations back
     *
-    * @param mixed $options
+    * @param mixed $options if integer value - number of generations to create
+    * If array, items 'generations' and 'dateformat' supported.
     */
     private $generations = 5;
     private $birthrange = array(3,50); // age old range for start person in tree
     private $result = array();
-    private $dtfmt = false;
+    private $dtfmt = 'Y-m-d';
+    private $death = false;
+    /**
+    * Generates family tree
+    *
+    * @param mixed $options: 'generations' - how many generations to create
+    * 'death' = true|1 - to create death date for each person, if more than 1 - will be used as "MAX" age before death (default 75)
+    */
     public function familyTree($options = false) {
         if (is_array($options)) {
             if (isset($options['generations'])) $this->generations = intval($options['generations']);
+            if (isset($options['death'])) $this->death = $options['death'];
         }
         elseif (is_scalar($options)) $this->generations = intval($options);
-        $genders = array('m','f');
 
         $pparams = array(
             'birthdate'=> $this->birthrange
@@ -45,24 +53,37 @@ class RandomFtree extends RandomData {
         foreach($this->result[$curlevel] as $id => $person) {
 
             // create father
-            $this->result[$newlvl][] = array(
+            $nno = count($this->result[$newlvl]);
+            $this->result[$newlvl][$nno] = array(
                 'lastname'  => $person['lastname']
                ,'firstname' => self::getFirstName('m')
                ,'birthdate'=>self::getRandomDate( 20, 38, $this->dtfmt, $person['birthdate'] )
                ,'gender' => 'm'
             );
+            if ($this->death) { # create death date
+                $maxage = ($this->death>40? $this->death : 75);
+                $datedeath = self::getRandomDate(-$maxage, -40, $this->dtfmt,$this->result[$newlvl][$nno]['birthdate']);
+                $deathyear = ($this->dtfmt[0]==='Y') ? intval($datedeath) : intval(substr($datedeath,6));
+                if ($deathyear < date('Y')) $this->result[$newlvl][$nno]['deathdate'] = $datedeath;
+            }
+            // Create reference to parent from current "node"
+            $this->result[$curlevel][$id]['father'] = $nno;
 
+            $nno++;
             // create mother
-            $this->result[$newlvl][] = array(
+            $this->result[$newlvl][$nno] = array(
                 'lastname'  => self::getLastName('f')
                ,'firstname' => self::getFirstName('f')
                ,'birthdate'=>self::getRandomDate( 18, 35, $this->dtfmt, $person['birthdate'] )
                ,'gender' => 'f'
             );
-            // Create references to parents from current "node"
-            $cnt = count($this->result[$newlvl]);
-            $this->result[$curlevel][$id]['father'] = $cnt-2;
-            $this->result[$curlevel][$id]['mother'] = $cnt-1;
+            if ($this->death) { # create death date for mother
+                $maxage = ($this->death>40? $this->death : 80);
+                $datedeath = self::getRandomDate(-$maxage, -40, $this->dtfmt,$this->result[$newlvl][$nno]['birthdate']);
+                $deathyear = ($this->dtfmt==='Y-m-d') ? intval($datedeath) : intval(substr($datedeath,6));
+                if ($deathyear < date('Y')) $this->result[$newlvl][$nno]['deathdate'] = $datedeath;
+            }
+            $this->result[$curlevel][$id]['mother'] = $nno;
         }
     }
 }

@@ -2,12 +2,10 @@
 /**
 * @name family_tree.php
 * Creating family tree example
-* (make random employee list with birthdays, start-working dates, dept ID's)
 * @Author Alexander Selifonov, <alex [at] selifan {dot} ru>
 *
 **/
 
-include('basefunc.php');
 include('../src/class.randomdata.php');
 include('../src/class.randomdata.ftree.php');
 include_once("../src/class.randomdata.lang-en.php");
